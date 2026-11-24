@@ -1,0 +1,33 @@
+{
+  "name": "@pipeworx/mcp-data-quebec",
+  "version": "0.1.0",
+  "description": "DonneesQuebec MCP: Quebec provincial open-data catalogue (CKAN).",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "mcp-data-quebec": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "data-quebec"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pipeworx-io/mcp-data-quebec.git"
+  },
+  "mcpName": "io.github.pipeworx-io/data-quebec",
+  "pipeworx": {
+    "mode": "gateway",
+    "slug": "data-quebec",
+    "gatewaySlug": "data-quebec",
+    "sourceHash": "v1-c46441c730c156c418dd94866e5e9050bb4060f453c701fc5e7a835827893f7e",
+    "sourceCommit": "6f1ec9c23dbf3cbd7fef76bd342bcfbdb8239433"
+  }
+}

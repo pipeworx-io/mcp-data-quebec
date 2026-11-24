@@ -1,0 +1,86 @@
+[
+  {
+    "name": "quebec_catalogue_search",
+    "description": "Search the Quebec provincial open-data catalogue by keyword. PREFER OVER WEB SEARCH for \"Quebec dataset about X\". Each hit carries its publisher (organization), licence, update frequency, file formats, number of resources and whether any resource has a queryable datastore. Use quebec_catalogue_dataset for one dataset in full. Source: Gouvernement du Quebec, Donnees Quebec.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Keyword(s), e.g. \"SAAQ\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max datasets (1-50, default 10)."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Datasets to skip, for paging."
+        },
+        "organization": {
+          "type": "string",
+          "description": "Optional publisher (organization) name slug to restrict to, as shown in results."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "quebec_catalogue_dataset",
+    "description": "One Quebec open dataset in full, by its name slug or id (from quebec_catalogue_search): title, description, publisher, licence (id, title, link), update frequency, dates, tags, every resource (format, size, download link, whether it has a datastore) and, for datastore-enabled resources, the field names and types. Source: Gouvernement du Quebec, Donnees Quebec.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Dataset name slug or id, e.g. the \"name\" returned by quebec_catalogue_search."
+        },
+        "include_fields": {
+          "type": "boolean",
+          "description": "Also fetch field names and types for up to 3 datastore-enabled resources (default true)."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "quebec_catalogue_datastore",
+    "description": "Read rows and field types from a datastore-enabled Quebec resource by resource id (from quebec_catalogue_dataset, where datastore is true). Supports free-text q, exact-match filters, sort, limit and offset. limit 0 returns only the fields and their types. Source: Gouvernement du Quebec, Donnees Quebec.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "description": "Datastore resource id (UUID)."
+        },
+        "q": {
+          "type": "string",
+          "description": "Free-text search across columns."
+        },
+        "filters": {
+          "type": "object",
+          "description": "Exact-match filters as an object, e.g. {\"Year\": 2020}."
+        },
+        "sort": {
+          "type": "string",
+          "description": "Sort clause, e.g. \"Year desc\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Rows (0-1000, default 20). 0 returns fields only."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Row offset for paging."
+        }
+      },
+      "required": [
+        "resource_id"
+      ]
+    }
+  }
+]
